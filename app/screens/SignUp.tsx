@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ActivityIndicator, Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { ScreenContentWrapper } from "react-native-screens";
 import { supabase } from "../lib/supabase";
 
 export default function SignUp() {
@@ -44,7 +45,8 @@ export default function SignUp() {
         }
     }
     return(
-        <View style={styles.container}>
+        <ScreenContentWrapper style={styles.container}>
+        <View style={styles.splashContainer}>
             <View style={styles.verticallySpaced}>
                 <TextInput 
                     style={styles.textInput}
@@ -99,13 +101,23 @@ export default function SignUp() {
                 </TouchableOpacity>
             </View>
         </View>
+        </ScreenContentWrapper>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: '#5B7E98',
+        flex: 1,
+        alignItems: 'center',
+        paddingTop: 100,
+    },
+    splashContainer: {
         marginTop: 40,
         padding: 12,
+        backgroundColor: '#fff',
+        borderRadius: 25,
+        width: '70%',
     },
     textInput: {
         borderWidth: 1,
@@ -120,7 +132,7 @@ const styles = StyleSheet.create({
         alignSelf: 'stretch',
     },
     button: {
-        backgroundColor: '#2e86de',
+        backgroundColor: '#5B7E98',
         padding: 15,
         borderRadius: 8,
         alignItems: 'center',
