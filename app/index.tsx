@@ -2,7 +2,7 @@ import { Session } from "@supabase/supabase-js";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { supabase } from "./lib/supabase";
-import Auth from "./screens/Auth";
+import LandingScreen from "./screens/LandingScreen";
 
 export default function Index() {
   const [session, setSession] = useState<Session | null>(null);
@@ -19,6 +19,6 @@ export default function Index() {
   }, []);
 
   return (
-    <Auth />
+    <LandingScreen />
   )
 }
