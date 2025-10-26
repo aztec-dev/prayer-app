@@ -1,14 +1,14 @@
 import { useRouter } from 'expo-router'
 import React, { useState } from 'react'
 import {
-  ActivityIndicator,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
+    ActivityIndicator,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import HeroSection from '../components/HeroSection'
+import HeroSection from '../../components/HeroSection'
 import '../global.css'
 
 export default function Auth() {
@@ -17,7 +17,6 @@ export default function Auth() {
   // const colorScheme = useColorScheme();
   // const themeTextStyle = colorScheme === 'light' ? styles.lightThemeText : styles.darkThemeText;
   // const themeButtonStyle = colorScheme === 'light' ? styles.buttonLightTheme : styles.buttonDarkTheme;
-
   return (
     <SafeAreaView className='flex-auto flex-col container mx-auto'>
       <View className='bg-primary h-[60px] absolute top-0 left-0 right-0 z-10'></View>

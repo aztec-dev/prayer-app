@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Alert, Text, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import { supabase } from "../lib/supabase";
+import { supabase } from "../app/lib/supabase";
 
 export default function Customer() {
     const [loading, setLoading] = useState(true);

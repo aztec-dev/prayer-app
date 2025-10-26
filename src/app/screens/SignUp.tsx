@@ -1,7 +1,9 @@
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { ActivityIndicator, Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { ScreenContentWrapper } from "react-native-screens";
 import { supabase } from "../lib/supabase";
+import BackButton from '../ui/BackButton';
 
 export default function SignUp() {
     // define states for user account creation.
@@ -11,6 +13,7 @@ export default function SignUp() {
     const [userId, setUserId] = useState();
     const [email, setEmail] = useState('');
     const [loading, setLoading] = useState(false);
+    const router = useRouter();
 
     async function createAuthUser() {
         setLoading(true)
@@ -25,6 +28,7 @@ export default function SignUp() {
     }
 
     async function createUserProfile(first_name: string, last_name: string) {
+        // Creates a user profile (first name, last name)
         const userId = await createAuthUser()
         try {
             setLoading(true)
@@ -36,6 +40,8 @@ export default function SignUp() {
             }
             // console.log("New user id: ", userId)
             const { error } = await supabase.from('user_profile').upsert(updates)
+            console.log("user profile created. Now redirecting to profile page.")
+            router.replace("/screens/ProfileScreen")  // routes the user to their profile screen once signed up.
         } catch (error) {
             if (error instanceof Error) {
                 Alert.alert(error.message)
@@ -46,6 +52,8 @@ export default function SignUp() {
     }
     return(
         <ScreenContentWrapper style={styles.container}>
+        {/* Return to landing button */}
+        <BackButton />
         <View style={styles.splashContainer}>
             <View style={styles.verticallySpaced}>
                 <TextInput 

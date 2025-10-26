@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ActivityIndicator, Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { ScreenContentWrapper } from "react-native-screens";
 import { supabase } from "../lib/supabase";
+import BackButton from "../ui/BackButton";
 
 export default function SignUp() {
     // define states for user account creation.
@@ -21,13 +22,14 @@ export default function SignUp() {
         if (error) {
             Alert.alert(error.message)
         } else if (data?.session) {
-            router.replace('/screens/HomeScreen') ;
+            router.replace('/screens/ProfileScreen');
         }
         setLoading(false)
     }
 
     return(
         <ScreenContentWrapper style={styles.container}>
+        <BackButton />
         <View style={styles.splashContainer}>
             <Text style={styles.headerText}>Login</Text>
             
