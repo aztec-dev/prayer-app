@@ -8,7 +8,7 @@ import {
     View
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import HeroSection from '../../components/HeroSection'
+import HeroSection from '../components/HeroSection'
 import '../global.css'
 
 export default function Auth() {
