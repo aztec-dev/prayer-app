@@ -22,34 +22,34 @@ export default function Auth() {
     <SafeAreaView className='flex-auto flex-col container mx-auto'>
       <View className='bg-primary h-[60px] absolute top-0 left-0 right-0 z-10'></View>
       <HeroSection />
-      <View className='py-5 px-4'>
+      <View className='py-5 px-4 mt-4'>
           <Text className='text-[28px]' style={{fontFamily: 'Roboto_800ExtraBold'}}>
           Bringing Christians together through prayer
         </Text>
-        <Text className='text-[22px]' style={{fontFamily: 'Playfair_400Regular'}}>
+        <Text className='text-[22px] py-1.5' style={{fontFamily: 'Playfair_400Regular'}}>
           “For where two or three are gathered together in My name, 
           I am there in the midst of them.” - Matt. 18:20
         </Text>
       </View>
 
       {/* sign in/up buttons */}
-      <View className='flex flex-row justify-center gap-6 mt-20'>
+      <View className='flex flex-row justify-center gap-6 mt-36'>
         <TouchableOpacity
-          className='w-48 h-14 flex-initial bg-primary items-center justify-center rounded-xl'
+          className='w-48 h-16 flex-initial bg-primary items-center justify-center rounded-xl'
           onPress={() => router.navigate('/screens/SignIn')}
           disabled={loading}
         >
           {loading ? (
             <ActivityIndicator color="#fff" />
           ) : (
-            <Text className='text-white'>Sign in</Text>
+            <Text className='text-white text-[20px]' style={{fontFamily: 'Roboto_500Medium'}}>Sign in</Text>
           )}
         </TouchableOpacity>
           <TouchableOpacity
-          className='w-48 h-14 flex-initial bg-primary items-center justify-center rounded-xl'
+          className='w-48 h-16 flex-initial bg-primary items-center justify-center rounded-xl'
           onPress={() => router.navigate("/screens/SignUp")}
         >
-          <Text className='text-white'>Sign up</Text>
+          <Text className='text-white text-[20px]' style={{fontFamily: 'Roboto_500Medium'}}>Sign up</Text>
         </TouchableOpacity>
       </View>
 
