@@ -1,6 +1,8 @@
 import { Session } from "@supabase/supabase-js";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
+import { ScreenContentWrapper } from "react-native-screens";
+import "./global.css";
 import { supabase } from "./lib/supabase";
 import LandingScreen from "./screens/LandingScreen";
 
@@ -19,6 +21,9 @@ export default function Index() {
   }, []);
 
   return (
-    <LandingScreen />
+    <ScreenContentWrapper>
+      <LandingScreen />
+    </ScreenContentWrapper>
+    
   )
 }
