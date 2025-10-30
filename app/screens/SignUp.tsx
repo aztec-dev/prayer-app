@@ -1,7 +1,6 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { ActivityIndicator, Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { ScreenContentWrapper } from "react-native-screens";
+import { ActivityIndicator, Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { supabase } from "../lib/supabase";
 import BackButton from '../ui/BackButton';
 
@@ -16,6 +15,7 @@ export default function SignUp() {
     const router = useRouter();
 
     async function createAuthUser() {
+        // creates a new user and returns the user id.
         const { data, error } = await supabase.auth.signUp({
             email,
             password
@@ -38,8 +38,13 @@ export default function SignUp() {
             }
             // console.log("New user id: ", userId)
             const { error } = await supabase.from('user_profile').upsert(updates)
-            console.log("user profile created. Now redirecting to profile page.")
-            router.replace("/screens/ProfileScreen")  // routes the user to their profile screen once signed up.
+            if (error) {
+                Alert.alert(error.message)
+            } else {
+                console.log("user profile created. Now redirecting to profile page.")
+                router.replace("/screens/ProfileScreen")  // routes the user to their profile screen once signed up.
+            }
+            
         } catch (error) {
             if (error instanceof Error) {
                 Alert.alert(error.message)
@@ -49,103 +54,72 @@ export default function SignUp() {
         }
     }
     return(
-        <ScreenContentWrapper style={styles.container}>
-        {/* Return to landing button */}
-        <BackButton />
-        <View style={styles.splashContainer}>
-            <View style={styles.verticallySpaced}>
-                <TextInput 
-                    style={styles.textInput}
-                    placeholder="First Name"
-                    onChangeText={setFirstName}
-                    value={firstName}
-                    autoCapitalize="words"
-                />
+        <View className="bg-primary flex-1">
+            <View className="flex-1 w-[100%] items-center justify-center">
+                <View className="bg-white rounded-xl p-4 w-[70%] mt-4">
+                    <Text className="text-[28px]" style={{fontFamily: 'Roboto_800ExtraBold'}}>Sign Up</Text>
+                    <View className="pt-1 pb-1 self-stretch">
+                        <TextInput 
+                            className="border border-[#ccc] rounded-lg p-3 text-[16px]"
+                            placeholder="First Name"
+                            onChangeText={setFirstName}
+                            value={firstName}
+                            placeholderTextColor="#ccc"
+                            autoCapitalize="words"
+                        />
+                    </View>
+                    <View className="pt-1 pb-1 self-stretch">
+                        <TextInput 
+                            className="border border-[#ccc] rounded-lg p-3 text-[16px]"
+                            placeholder="Last Name"
+                            onChangeText={setLastName}
+                            value={lastName}
+                            placeholderTextColor="#ccc"
+                            autoCapitalize="words"
+                        />
+                    </View>
+                    
+                    <View className="pt-1 pb-1 self-stretch">
+                        <TextInput 
+                            className="border border-[#ccc] rounded-lg p-3 text-[16px]"
+                            placeholder="Email"
+                            onChangeText={setEmail}
+                            value={email}
+                            autoCapitalize="none"
+                            placeholderTextColor="#ccc"
+                            keyboardType="email-address"
+                        />
+                    </View>
+                    <View className="pt-1 pb-1 self-stretch">
+                        <TextInput 
+                            className="border border-[#ccc] rounded-lg p-3 text-[16px]"
+                            placeholder="Password"
+                            onChangeText={setPassword}
+                            value={password}
+                            secureTextEntry
+                            placeholderTextColor="#ccc"
+                            autoCapitalize="none"
+                        />
+                    </View>
+                    
+                    <View className="pt-1 pb-1 self-stretch">
+                        <TouchableOpacity
+                            className="bg-primary p-4 rounded-lg items-center"
+                            onPress={() => createUserProfile(firstName, lastName)}
+                            disabled={loading}
+                            >
+                                {loading ? (
+                                    <ActivityIndicator color="fff"></ActivityIndicator>
+                                ): (
+                                    <Text className="text-white font-semibold text-[16px]">Sign Up</Text>
+                                )}
+                        </TouchableOpacity>
+                    </View>
+                </View>
             </View>
-            <View style={styles.verticallySpaced}>
-                <TextInput 
-                    style={styles.textInput}
-                    placeholder="Last Name"
-                    onChangeText={setLastName}
-                    value={lastName}
-                    autoCapitalize="words"
-                />
-            </View>
-            
-            <View style={styles.verticallySpaced}>
-                <TextInput 
-                    style={styles.textInput}
-                    placeholder="Email"
-                    onChangeText={setEmail}
-                    value={email}
-                    autoCapitalize="none"
-                    keyboardType="email-address"
-                />
-            </View>
-            <View style={styles.verticallySpaced}>
-                <TextInput 
-                    style={styles.textInput}
-                    placeholder="Password"
-                    onChangeText={setPassword}
-                    value={password}
-                    secureTextEntry
-                    autoCapitalize="none"
-                />
-            </View>
-            
-            <View style={styles.verticallySpaced}>
-                <TouchableOpacity 
-                    style={styles.button}
-                    onPress={() => createUserProfile(firstName, lastName)}
-                    disabled={loading}
-                    >
-                        {loading ? (
-                            <ActivityIndicator color="fff"></ActivityIndicator>
-                        ): (
-                            <Text style={styles.buttonText}>Sign Up</Text>
-                        )}
-                </TouchableOpacity>
+            <View className="w-[100%] items-start ps-5" style={{paddingBottom: 32}}>
+                <BackButton />
             </View>
         </View>
-        </ScreenContentWrapper>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#5B7E98',
-        flex: 1,
-        alignItems: 'center',
-        paddingTop: 100,
-    },
-    splashContainer: {
-        marginTop: 40,
-        padding: 12,
-        backgroundColor: '#fff',
-        borderRadius: 25,
-        width: '70%',
-    },
-    textInput: {
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 8,
-        padding: 12,
-        fontSize: 16,
-    },
-    verticallySpaced: {
-        paddingTop: 4,
-        paddingBottom: 4,
-        alignSelf: 'stretch',
-    },
-    button: {
-        backgroundColor: '#5B7E98',
-        padding: 15,
-        borderRadius: 8,
-        alignItems: 'center',
-    },
-    buttonText: {
-        color: '#fff',
-        fontWeight: '600',
-        fontSize: 16,
-    }
-});
