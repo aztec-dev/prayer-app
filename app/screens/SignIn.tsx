@@ -5,7 +5,7 @@ import { ScreenContentWrapper } from "react-native-screens";
 import { supabase } from "../lib/supabase";
 import BackButton from "../ui/BackButton";
 
-export default function SignUp() {
+export default function SignIn() {
     // define states for user account creation.
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
@@ -61,7 +61,7 @@ export default function SignUp() {
                     disabled={loading}
                     >
                         {loading ? (
-                            <ActivityIndicator color="fff"></ActivityIndicator>
+                            <ActivityIndicator color="#fff"></ActivityIndicator>
                         ): (
                             <Text style={styles.buttonText}>Sign In</Text>
                         )}
