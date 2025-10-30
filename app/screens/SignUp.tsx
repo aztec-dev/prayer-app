@@ -16,14 +16,12 @@ export default function SignUp() {
     const router = useRouter();
 
     async function createAuthUser() {
-        setLoading(true)
         const { data, error } = await supabase.auth.signUp({
             email,
             password
         })
 
         if (error) Alert.alert(error.message)
-        setLoading(false)
         return data.user?.id
     }
 
