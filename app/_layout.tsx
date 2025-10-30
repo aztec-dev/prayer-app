@@ -29,12 +29,14 @@ export default function RootLayout() {
     }
   }, [loaded, error]);
 
+  if (!loaded || error) {
+    return null;
+  }
+
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false , title: 'Landing'}} />
-      <Stack.Screen name="screens/SignIn" options={{ headerShown: false, title: 'Sign In' }} />
-      <Stack.Screen name="screens/SignUp" options={{ headerShown: false, title: 'Sign Up' }} />
     </Stack>
     <StatusBar style="auto" />
   </ThemeProvider>
