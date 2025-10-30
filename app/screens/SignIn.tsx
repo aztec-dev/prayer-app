@@ -1,7 +1,6 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { ActivityIndicator, Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { ScreenContentWrapper } from "react-native-screens";
 import { supabase } from "../lib/supabase";
 import BackButton from "../ui/BackButton";
 
@@ -28,90 +27,58 @@ export default function SignIn() {
     }
 
     return(
-        <ScreenContentWrapper style={styles.container}>
-        <BackButton />
-        <View style={styles.splashContainer}>
-            <Text style={styles.headerText}>Login</Text>
-            
-            <View style={styles.verticallySpaced}>
-                <TextInput 
-                    style={styles.textInput}
-                    placeholder="Email"
-                    onChangeText={setEmail}
-                    value={email}
-                    autoCapitalize="none"
-                    keyboardType="email-address"
-                />
+        <View className="flex-1 bg-primary">
+            <View className="flex-1 w-[100%] items-center justify-center">
+                <View className="bg-white rounded-xl p-4 w-[70%] mt-4">
+                    <Text className="text-[28px]" style={{fontFamily: 'Roboto_800ExtraBold'}}>Login</Text>
+                    
+                    <View className="pt-1 pb-1 self-stretch">
+                        <TextInput 
+                            className="border border-[#ccc] rounded-lg p-3 text-[16px]"
+                            placeholder="Email"
+                            onChangeText={setEmail}
+                            value={email}
+                            autoCapitalize="none"
+                            keyboardType="email-address"
+                        />
+                    </View>
+                    <View className="pt-1 pb-1 self-stretch">
+                        <TextInput 
+                            className="border border-[#ccc] rounded-lg p-3 text-[16px]"
+                            placeholder="Password"
+                            onChangeText={setPassword}
+                            value={password}
+                            secureTextEntry
+                            autoCapitalize="none"
+                        />
+                    </View>
+                    
+                    <View className="pt-1 pb-1 self-stretch">
+                        <TouchableOpacity 
+                            className="bg-primary p-4 rounded-lg items-center"
+                            onPress={() => AuthUser()}
+                            disabled={loading}
+                            >
+                                {loading ? (
+                                    <ActivityIndicator color="#fff"></ActivityIndicator>
+                                ): (
+                                    <Text className="text-white font-semibold text-[16px]">Sign In</Text>
+                                )}
+                        </TouchableOpacity>
+                    </View>
+                </View>
             </View>
-            <View style={styles.verticallySpaced}>
-                <TextInput 
-                    style={styles.textInput}
-                    placeholder="Password"
-                    onChangeText={setPassword}
-                    value={password}
-                    secureTextEntry
-                    autoCapitalize="none"
-                />
-            </View>
-            
-            <View style={styles.verticallySpaced}>
-                <TouchableOpacity 
-                    style={styles.button}
-                    onPress={() => AuthUser()}
-                    disabled={loading}
-                    >
-                        {loading ? (
-                            <ActivityIndicator color="#fff"></ActivityIndicator>
-                        ): (
-                            <Text style={styles.buttonText}>Sign In</Text>
-                        )}
-                </TouchableOpacity>
+            <View className="w-[100%] items-start ps-5 pb-8">
+                <BackButton />
             </View>
         </View>
-        </ScreenContentWrapper>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#5B7E98',
-        flex: 1,
-        alignItems: 'center',
-        paddingTop: 100,
-    },
-    splashContainer: {
-        marginTop: 40,
-        padding: 12,
-        backgroundColor: '#fff',
-        borderRadius: 25,
-        width: '70%',
-    },
-    textInput: {
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 8,
-        padding: 12,
-        fontSize: 16,
-    },
-    verticallySpaced: {
-        paddingTop: 4,
-        paddingBottom: 4,
-        alignSelf: 'stretch',
-    },
-    button: {
-        backgroundColor: '#5B7E98',
-        padding: 15,
-        borderRadius: 8,
-        alignItems: 'center',
-    },
     buttonText: {
         color: '#fff',
         fontWeight: '600',
         fontSize: 16,
-    },
-    headerText: {
-        fontSize: 28,
-        fontWeight: '800',
-        fontFamily: 'Roboto',
     },
 });

@@ -117,7 +117,7 @@ export default function SignUp() {
                     </View>
                 </View>
             </View>
-            <View className="w-[100%] items-start ps-5" style={{paddingBottom: 32}}>
+            <View className="w-[100%] items-start ps-5 pb-8">
                 <BackButton />
             </View>
         </View>
