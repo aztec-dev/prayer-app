@@ -8,7 +8,7 @@ export default function BackButton() {
         <TouchableOpacity 
             className='bg-slate-400 rounded-[50%]'
             onPress={() => router.replace("../")}>
-            <Ionicons name="arrow-back-circle" size={32} color="white" />
+            <Ionicons name="arrow-back-circle" size={38} color="white" />
         </TouchableOpacity>
     )
 }
