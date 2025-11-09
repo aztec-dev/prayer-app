@@ -6,9 +6,12 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import 'react-native-reanimated';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import './global.css';
+import { supabase } from './lib/supabase';
+
 SplashScreen.preventAutoHideAsync();
 
 export const unstable_settings = {
@@ -22,6 +25,8 @@ export default function RootLayout() {
     Roboto_500Medium,
     Roboto_800ExtraBold,
   });
+  const [isReady, setIsReady] = useState(false);
+  const [isAuthed, setIsAuthed] = useState<boolean | null>(null);
 
   useEffect(()=> {
     if (loaded || error) {
@@ -29,17 +34,39 @@ export default function RootLayout() {
     }
   }, [loaded, error]);
 
-  if (!loaded || error) {
+  useEffect(() => {
+    let mounted = true;
+    async function init() {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!mounted) return;
+      setIsAuthed(!!session);
+      supabase.auth.onAuthStateChange((_event, session) => {
+        if (!mounted) return;
+        setIsAuthed(!!session);
+      });
+      setIsReady(true);
+    }
+    init();
+    return () => { mounted = false; };
+  }, []);
+
+  if (!loaded || error || !isReady || isAuthed === null) {
     return null;
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false , title: 'Landing'}} />
-    </Stack>
-    <StatusBar style="auto" />
-  </ThemeProvider>
-
+    <SafeAreaProvider>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <Stack screenOptions={{ headerShown: false }}>
+          {isAuthed ? (
+            <Stack.Screen name="ProfileScreen" />
+          ) : (
+            <Stack.Screen name="index" />
+          )}
+        </Stack>
+        <StatusBar style="auto" />
+      </ThemeProvider>
+    </SafeAreaProvider>
   );
+  
 }
