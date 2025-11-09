@@ -1,7 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./app/index.tsx", "./app/components/**/*.{js,jsx,ts,tsx}", "./app/screens/**/*.{js,jsx,ts,tsx}"],
+  content: ["./app/**/*.{js,jsx,ts,tsx}"],
   presets: [require("nativewind/preset")],
+  darkMode: 'media',
   theme: { extend: {
     colors: {
       primary: '#5B7E98',
