@@ -1,8 +1,8 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { ActivityIndicator, Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { supabase } from "../lib/supabase";
-import BackButton from "../ui/BackButton";
+import { ActivityIndicator, Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { supabase } from "./lib/supabase";
+import BackButton from "./ui/BackButton";
 
 export default function SignIn() {
     // define states for user account creation.
@@ -21,7 +21,7 @@ export default function SignIn() {
         if (error) {
             Alert.alert(error.message)
         } else if (data?.session) {
-            router.replace('/screens/ProfileScreen');
+            router.replace('/ProfileScreen');
         }
         setLoading(false)
     }
@@ -39,6 +39,7 @@ export default function SignIn() {
                             onChangeText={setEmail}
                             value={email}
                             autoCapitalize="none"
+                            placeholderTextColor="#ccc"
                             keyboardType="email-address"
                         />
                     </View>
@@ -49,6 +50,7 @@ export default function SignIn() {
                             onChangeText={setPassword}
                             value={password}
                             secureTextEntry
+                            placeholderTextColor="#ccc"
                             autoCapitalize="none"
                         />
                     </View>
@@ -74,11 +76,3 @@ export default function SignIn() {
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    buttonText: {
-        color: '#fff',
-        fontWeight: '600',
-        fontSize: 16,
-    },
-});

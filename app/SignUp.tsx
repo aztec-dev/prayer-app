@@ -1,8 +1,8 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { ActivityIndicator, Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { supabase } from "../lib/supabase";
-import BackButton from '../ui/BackButton';
+import { supabase } from "./lib/supabase";
+import BackButton from './ui/BackButton';
 
 export default function SignUp() {
     // define states for user account creation.
@@ -42,7 +42,7 @@ export default function SignUp() {
                 Alert.alert(error.message)
             } else {
                 console.log("user profile created. Now redirecting to profile page.")
-                router.replace("/screens/ProfileScreen")  // routes the user to their profile screen once signed up.
+                router.replace("/ProfileScreen")  // routes the user to their profile screen once signed up.
             }
             
         } catch (error) {
@@ -54,7 +54,7 @@ export default function SignUp() {
         }
     }
     return(
-        <View className="bg-primary flex-1">
+        <View className="flex-1 bg-primary">
             <View className="flex-1 w-[100%] items-center justify-center">
                 <View className="bg-white rounded-xl p-4 w-[70%] mt-4">
                     <Text className="text-[28px]" style={{fontFamily: 'Roboto_800ExtraBold'}}>Sign Up</Text>
