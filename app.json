@@ -43,7 +43,9 @@
       [
         "expo-font",
         {
-          "fonts": ["node_modules/@expo-google-fonts/playfair/400Regular/Playfair_400Regular.ttf"]
+          "fonts": [
+            "node_modules/@expo-google-fonts/playfair/400Regular/Playfair_400Regular.ttf"
+          ]
         }
       ]
     ],

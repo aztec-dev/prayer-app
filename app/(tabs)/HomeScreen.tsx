@@ -1,13 +1,12 @@
-import { Button } from "@react-navigation/elements";
 import { useNavigation } from "expo-router";
+import { Text, View } from "react-native";
 
 export default function HomeScreen() {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
 
-    return (
-        <Button 
-        onPress={() => navigation.navigate('Profile', {name: "Azariah"})}
-        > Press me
-        </Button>
-    )
+  return (
+    <View className="mt-10">
+      <Text className="text-white">Hello</Text>
+    </View>
+  );
 }

@@ -3,15 +3,15 @@
 **Notes for development and processes. Update as needed.**
 
 ## Content
+
 - [Database design](#database-design)
 
 ## Database Design
 
 ### Entities
+
 Current entities:
 
-| Table      | Relationships | 
-|------------|---------------|
+| Table          | Relationships              |
+| -------------- | -------------------------- |
 | `user_profile` | ref: `prayers` one-to-many |
-
-
